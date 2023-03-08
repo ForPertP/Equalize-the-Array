@@ -17,7 +17,7 @@ int equalizeArray(vector<int> arr)
 {
     std::map<int, int> mp;
 
-    for (auto n : arr)
+    for (const auto& n : arr)
     {
         mp[n]++;
     }
@@ -37,9 +37,10 @@ int equalizeArray1(vector<int> arr)
     std::map<int, int> mp;
     int max = 0;
 
-    for (const auto n : arr)
+    for (const auto& n : arr)
     {
-        const auto ret = mp.insert({ n, 1 });
+        //const auto ret = mp.insert({ n, 1 });
+        const auto ret = mp.emplace( n, 1);
         if (ret.second == false)
         {
             ret.first->second++;
@@ -53,6 +54,7 @@ int equalizeArray1(vector<int> arr)
     
     return arr.size() - max;
 }
+
 
 int main()
 {
@@ -107,4 +109,19 @@ string rtrim(const string &str) {
     return s;
 }
 
+vector<string> split(const string &str) {
+    vector<string> tokens;
 
+    string::size_type start = 0;
+    string::size_type end = 0;
+
+    while ((end = str.find(" ", start)) != string::npos) {
+        tokens.push_back(str.substr(start, end - start));
+
+        start = end + 1;
+    }
+
+    tokens.push_back(str.substr(start));
+
+    return tokens;
+}
